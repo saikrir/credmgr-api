@@ -1,3 +1,4 @@
 credmgr:
   api:
-    ping-message: Hi there, server is up
+    ping-message: Hi there, server is up!
+    admin-ping-message: Hi Admin, Server is up
