@@ -1,0 +1,3 @@
+credmgr:
+  api:
+    ping-message: Hi there, server is up
