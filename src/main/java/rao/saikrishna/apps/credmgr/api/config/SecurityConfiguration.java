@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import rao.saikrishna.apps.credmgr.api.service.ApplicationUserService;
@@ -29,12 +30,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/adminPing").hasAuthority("ADMIN")
-                .antMatchers("/ping").hasAnyAuthority("ADMIN","USER")
-                .antMatchers("/").permitAll()
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/users/authenticate").permitAll()
                 .antMatchers("/**").denyAll()
-                .and().formLogin();
+                .and().exceptionHandling()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
     }
 
     @Bean
