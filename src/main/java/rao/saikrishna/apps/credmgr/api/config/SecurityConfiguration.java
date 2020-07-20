@@ -10,17 +10,25 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import rao.saikrishna.apps.credmgr.api.filters.AuthFilter;
 import rao.saikrishna.apps.credmgr.api.service.ApplicationUserService;
+import rao.saikrishna.apps.credmgr.api.utils.CredMgrPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
+
     @Autowired
     private ApplicationUserService applicationUserService;
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
+    @Autowired
+    private CredMgrPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthFilter authFilter;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         logger.info("Security Configured");
@@ -33,18 +41,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/users/authenticate").permitAll()
-                .antMatchers("/**").denyAll()
-                .and().exceptionHandling()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
     }
 }

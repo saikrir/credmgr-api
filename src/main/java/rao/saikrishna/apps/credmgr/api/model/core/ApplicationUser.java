@@ -1,11 +1,11 @@
-package rao.saikrishna.apps.credmgr.api.model;
+package rao.saikrishna.apps.credmgr.api.model.core;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class ApplicationUser {
 
     @Id

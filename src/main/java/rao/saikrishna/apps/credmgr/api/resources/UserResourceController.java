@@ -40,13 +40,11 @@ public class UserResourceController {
     public ResponseEntity<AuthResponse> authorize(@Valid @RequestBody AuthRequest authRequest) {
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword());
-
+                new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword());
         try {
             authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             logger.info("Authentication for user {} has succeeded ", authRequest.getUserName());
-        }
-        catch(BadCredentialsException badCredentialsException) {
+        } catch (BadCredentialsException badCredentialsException) {
             logger.error("Invalid Username and password combination {} ", authRequest.getUserName());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -55,4 +53,5 @@ public class UserResourceController {
         String token = tokenUtils.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(token));
     }
+    
 }

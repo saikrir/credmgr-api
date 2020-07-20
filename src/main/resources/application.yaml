@@ -1,7 +1,6 @@
-
 logging:
   level:
-    org.hibernate.SQL: ERROR
+    org.hibernate.SQL: TRACE
 
 spring:
   datasource:
@@ -21,5 +20,4 @@ server:
 
 credmgr:
   api:
-    ping-message: Hi there, server is up!
-    admin-ping-message: Hi Admin, Server is up
+    token-duration: 30

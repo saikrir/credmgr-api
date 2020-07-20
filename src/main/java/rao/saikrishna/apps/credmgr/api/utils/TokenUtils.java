@@ -5,18 +5,30 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@Service
+@Component
 public class TokenUtils {
 
     @Value("${APP_SECRET}")
     private String APP_SECRET;
+
+    @Value("${credmgr.api.token-duration}")
+    private long NEW_TOKEN_ISSUE_DURATION;
+
+    private Duration tokenValidityDuration;
+
+    @PostConstruct
+    public void initializeDuration() {
+        tokenValidityDuration = Duration.ofMinutes(NEW_TOKEN_ISSUE_DURATION);
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -30,6 +42,7 @@ public class TokenUtils {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
     }
@@ -44,9 +57,8 @@ public class TokenUtils {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + tokenValidityDuration.toMillis()))
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET).compact();
     }
 
