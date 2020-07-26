@@ -3,4 +3,4 @@ Environment Variable Needed
 
 - DB_USER
 - DB_PASSWORD
-- APP_SECRET
+- APP_KEY

@@ -18,6 +18,6 @@ public class CredMgrPasswordEncoder implements PasswordEncoder {
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return StringUtils.equals(rawPassword, encodedPassword);
+        return StringUtils.equals(encode(rawPassword), encodedPassword);
     }
 }

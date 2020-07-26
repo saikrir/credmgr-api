@@ -17,8 +17,8 @@ import java.util.function.Function;
 @Component
 public class TokenUtils {
 
-    @Value("${APP_SECRET}")
-    private String APP_SECRET;
+    @Value("${APP_KEY}")
+    private String APP_KEY;
 
     @Value("${credmgr.api.token-duration}")
     private long NEW_TOKEN_ISSUE_DURATION;
@@ -44,7 +44,7 @@ public class TokenUtils {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(APP_KEY).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -59,7 +59,7 @@ public class TokenUtils {
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + tokenValidityDuration.toMillis()))
-                .signWith(SignatureAlgorithm.HS256, APP_SECRET).compact();
+                .signWith(SignatureAlgorithm.HS256, APP_KEY).compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

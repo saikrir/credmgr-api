@@ -19,8 +19,8 @@ import java.util.Base64;
 
 @Component
 public class CryptoUtils {
-    @Value("${APP_SECRET}")
-    private String APP_SECRET;
+    @Value("${APP_KEY}")
+    private String APP_KEY;
 
     private SecretKeySpec secretKeySpec;
     private static final Charset UTF8 = StandardCharsets.UTF_8;
@@ -29,7 +29,7 @@ public class CryptoUtils {
     public void initializeKey() {
         MessageDigest messageDigest = null;
         try {
-            byte[] appSecretBytes = APP_SECRET.getBytes(UTF8);
+            byte[] appSecretBytes = APP_KEY.getBytes(UTF8);
             messageDigest = MessageDigest.getInstance("SHA1");
             appSecretBytes = messageDigest.digest(appSecretBytes);
             appSecretBytes = Arrays.copyOf(appSecretBytes, 16);
