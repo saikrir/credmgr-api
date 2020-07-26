@@ -12,4 +12,6 @@ public interface ISystemCredentialRepository extends CrudRepository<SystemCreden
     List<SystemCredentials> findByAppUserAndSystemNameLike(String appUser, String systemName);
 
     List<SystemCredentials> findByAppUser(String appUser);
+    
+
 }

@@ -20,6 +20,7 @@ public class ModelMapper {
         systemCredentials.setSystemPassword(cryptoUtils.encryptText(systemCredentialRO.getPassword()));
         systemCredentials.setSystemName(systemCredentialRO.getSystemName());
         systemCredentials.setLastUpdated(LocalDateTime.now());
+        systemCredentials.setId(systemCredentialRO.getId());
         if (StringUtils.isNotEmpty(systemCredentialRO.getDescription())) {
             systemCredentials.setAdditionalInfo(systemCredentialRO.getDescription());
         }
@@ -38,5 +39,14 @@ public class ModelMapper {
         systemCredentialRO.setLastUpdated(systemCredentials.getLastUpdated());
         systemCredentialRO.setId(systemCredentials.getId());
         return systemCredentialRO;
+    }
+
+    public void copyValuesToModel(SystemCredentialRO systemCredentialRO, SystemCredentials systemCredentials) {
+        systemCredentials.setId(systemCredentialRO.getId());
+        systemCredentials.setAdditionalInfo(systemCredentialRO.getDescription());
+        systemCredentials.setSystemName(systemCredentialRO.getSystemName());
+        systemCredentials.setSystemPassword(cryptoUtils.encryptText(systemCredentialRO.getPassword()));
+        systemCredentials.setSystemUserId(systemCredentialRO.getUserId());
+        systemCredentials.setLastUpdated(LocalDateTime.now());
     }
 }
