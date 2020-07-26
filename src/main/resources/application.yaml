@@ -21,3 +21,4 @@ server:
 credmgr:
   api:
     token-duration: 30
+    whitelisted-host: "http://localhost:3000"
