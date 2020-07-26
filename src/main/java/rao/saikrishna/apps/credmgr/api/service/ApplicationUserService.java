@@ -27,7 +27,7 @@ public class ApplicationUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<ApplicationUser> optionalApplicationUser = applicationUserRepository.findByUserName(username);
 
-        optionalApplicationUser.orElseThrow(() -> {
+        optionalApplicationUser.<UsernameNotFoundException>orElseThrow(() -> {
             throw new UsernameNotFoundException((username + " was not found"));
         });
 
