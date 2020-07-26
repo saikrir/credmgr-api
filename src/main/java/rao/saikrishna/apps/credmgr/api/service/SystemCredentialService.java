@@ -47,7 +47,7 @@ public class SystemCredentialService implements ISystemCredentialService {
     public void updateSystemCredential(SystemCredentialRO systemCredentialRO) {
         Long credId = systemCredentialRO.getId();
         Optional<SystemCredentials> systemCredentialsOptional = systemCredentialRepository.findById(credId);
-        systemCredentialsOptional.orElseThrow(() -> {
+        systemCredentialsOptional.<CredentialManagerRecordNotFoundException>orElseThrow(() -> {
             return new CredentialManagerRecordNotFoundException(" Unable to find record with  " + credId);
         });
         SystemCredentials systemCredentials = systemCredentialsOptional.get();
@@ -67,7 +67,7 @@ public class SystemCredentialService implements ISystemCredentialService {
     protected SystemCredentials getSystemCredentialSingle(Long id) {
         Optional<SystemCredentials> systemCredentialsOptional = systemCredentialRepository.findById(id);
 
-        systemCredentialsOptional.orElseThrow(() -> {
+        systemCredentialsOptional.<CredentialManagerRecordNotFoundException>orElseThrow(() -> {
             return new CredentialManagerRecordNotFoundException("Cannot find SystemCredential with Id " + id);
         });
 
