@@ -20,10 +20,10 @@ public class CorsConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                String rootPath = apiContextRoot + "/**";
+                String rootPath = "/**";
                 registry.addMapping(rootPath)
                         .allowedOrigins(allowedDomain)
-                        .allowedMethods("PUT", "DELETE", "GET", "POST")
+                        .allowedMethods("PUT", "DELETE", "GET", "POST", "OPTIONS")
                         .allowedHeaders("Authorization")
                         .allowCredentials(false);
             }
