@@ -11,15 +11,14 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rao.saikrishna.apps.credmgr.api.model.AuthRequest;
 import rao.saikrishna.apps.credmgr.api.model.AuthResponse;
 import rao.saikrishna.apps.credmgr.api.utils.TokenUtils;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users/")
@@ -53,5 +52,26 @@ public class UserResourceController {
         String token = tokenUtils.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(token));
     }
+
+    @GetMapping(value = "/token/{token}/validate", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, String>> validateToken(@PathVariable("token") String jwtToken) {
+        try{
+            String userName = tokenUtils.extractUsername(jwtToken);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+            if(tokenUtils.validateToken(jwtToken, userDetails)) {
+                Map<String, String> responseProps = new HashMap<>();
+                responseProps.put("username", userName);
+                return ResponseEntity.ok(responseProps);
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        }
+        catch(Exception e) {
+            logger.error("Token is malformed or tampered {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
     
 }
