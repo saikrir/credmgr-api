@@ -30,7 +30,7 @@ public class CredentialResourceController {
 
     @GetMapping("/system-credentials")
     public ResponseEntity<List<SystemCredentialRO>> searchCredentials(@RequestParam("systemName") String systemName) {
-        if (StringUtils.isNotEmpty(systemName) && StringUtils.length(systemName) > 3) {
+        if (StringUtils.isNotEmpty(systemName) && StringUtils.length(systemName) >= 3) {
             return ResponseEntity.ok().body(systemCredentialService.searchSystemCredentials(systemName, getPrincipal()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
