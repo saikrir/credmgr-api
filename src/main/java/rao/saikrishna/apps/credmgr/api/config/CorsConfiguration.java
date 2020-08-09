@@ -22,7 +22,8 @@ public class CorsConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 String rootPath = "/**";
                 registry.addMapping(rootPath)
-                        .allowedOrigins(allowedDomain);
+                        .allowedOrigins(allowedDomain)
+                        .allowedMethods("PUT", "POST", "GET", "DELETE", "OPTIONS");
             }
         };
     }
