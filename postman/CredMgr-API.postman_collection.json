@@ -1,0 +1,181 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CredMgr-API",
+		"_postman_id": "81c4467c-7600-c46b-ade3-56ebefa1a16b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate as Jaya",
+			"request": {
+				"url": "http://localhost:8080/v1/credmgr-api/users/authenticate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\": \"jaya\",\n\t\"password\": \"jaya\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "NewCredentail",
+			"request": {
+				"url": "http://localhost:8080/v1/credmgr-api/system-credentials",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJza3JhbyIsImV4cCI6MTU5NTIxOTIyOCwiaWF0IjoxNTk1MjE3NDI4fQ.ICaj6DFjYF09XJnOGSwNN4ynt6riZ14RCc9ZonxLizM",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": \"test\",\n\t\"password\": \"mypassword\",\n\t\"systemName\":\"some system\",\n\t\"description\": \"Its a lovely system\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCredentials",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/v1/credmgr-api/system-credentials?systemName=some",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"credmgr-api",
+						"system-credentials"
+					],
+					"query": [
+						{
+							"key": "systemName",
+							"value": "some",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJza3JhbyIsImV4cCI6MTU5NTczNjU1MywiaWF0IjoxNTk1NzM0NzUzfQ.10xnDaqxV05ajlUnjYIsrwfNAS_3ZjugAIQLhUWHOKA",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"url": "http://localhost:8080/v1/credmgr-api/users/authenticate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\": \"skrao\",\n\t\"password\": \"skrao\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"url": "http://localhost:8080/v1/credmgr-api/system-credentials/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJza3JhbyIsImV4cCI6MTU5NTczNjkxOCwiaWF0IjoxNTk1NzM1MTE4fQ.wwX0e_LLHiqLsQ-eGfKhSqalvhHY1lD2SsSfISXjWOQ",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"test\",\n    \"password\": \"mypassword\",\n    \"systemName\": \"Super system\",\n    \"description\": \"Its a lovely system\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetById",
+			"request": {
+				"url": "http://skrao-app-server:9000/v1/credmgr-api/system-credentials/2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJza3JhbyIsImV4cCI6MTU5Njk0NTkzOCwiaWF0IjoxNTk2OTQ0MTM4fQ.Km9-KTPbspXLxZ7L2GiRKByBtS1KrbaQy8wQxS7UiVI",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Credential",
+			"request": {
+				"url": "http://localhost:8080/v1/credmgr-api/system-credentials/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYXlhIiwiZXhwIjoxNTk1NzM4Njk0LCJpYXQiOjE1OTU3MzY4OTR9.GIzvHp_psQiwJN431h_IzAg9B8yZWjhp_egvUkc-Xsw",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"test\",\n    \"password\": \"mypassword\",\n    \"systemName\": \"Super system\",\n    \"description\": \"Its a BEautiful system\",\n    \"lastUpdated\": \"2020-07-19T23:25:19\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
