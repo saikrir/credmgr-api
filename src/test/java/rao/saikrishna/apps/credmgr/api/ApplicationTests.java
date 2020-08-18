@@ -13,9 +13,9 @@ class ApplicationTests {
     private CryptoUtils cryptoUtils;
 
     static {
-        System.setProperty("APP_KEY", "skrao");
-        System.setProperty("DB_USER", "web_user");
-        System.setProperty("DB_PASSWORD", "tempid1");
+        System.setProperty("APP_KEY", "random");
+        System.setProperty("DB_USER", "chickbuk");
+        System.setProperty("DB_PASSWORD", "chikbuk");
     }
 
 
