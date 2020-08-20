@@ -7,12 +7,3 @@ spring:
     url: jdbc:mysql://skrao-app-server:3306/p_cmgr_db?useSSL=false&useLegacyDatetimeCode=false
     username: ${db_user}
     password: ${db_password}
-
-server:
-  servlet:
-    context-path: /v1/credmgr-api
-
-credmgr:
-  api:
-    token-duration: 30
-    whitelisted-host: "http://skrao-app-server"

@@ -6,14 +6,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 public class CorsConfiguration {
 
     @Value("${server.servlet.context-path}")
     private String apiContextRoot;
 
-    @Value("${credmgr.api.whitelisted-host}")
-    private String allowedDomain;
+    @Value("#{'${credmgr.api.whitelisted-origins}'.split(',')}")
+    private String allowedOrigins [];
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -22,7 +24,7 @@ public class CorsConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 String rootPath = "/**";
                 registry.addMapping(rootPath)
-                        .allowedOrigins(allowedDomain)
+                        .allowedOrigins(allowedOrigins)
                         .allowedMethods("PUT", "POST", "GET", "DELETE", "OPTIONS");
             }
         };
