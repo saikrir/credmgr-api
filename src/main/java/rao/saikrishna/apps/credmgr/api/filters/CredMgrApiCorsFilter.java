@@ -13,9 +13,9 @@ import java.io.IOException;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsFilter implements Filter {
+public class CredMgrApiCorsFilter implements Filter {
 
-    private final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(CredMgrApiCorsFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
