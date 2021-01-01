@@ -1,3 +1,4 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.utils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -7,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CredMgrPasswordEncoder implements PasswordEncoder {
-
-    @Autowired
-    private CryptoUtils cryptoUtils;
+    @Autowired private CryptoUtils cryptoUtils;
 
     @Override
     public String encode(CharSequence rawPassword) {

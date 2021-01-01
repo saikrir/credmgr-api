@@ -1,3 +1,4 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.exceptions;
 
 public class CredentialManagerRecordNotFoundException extends RuntimeException {

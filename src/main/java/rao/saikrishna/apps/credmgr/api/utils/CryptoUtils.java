@@ -1,14 +1,6 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.utils;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -16,6 +8,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
+import javax.annotation.PostConstruct;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CryptoUtils {
@@ -44,10 +44,12 @@ public class CryptoUtils {
         try {
             Cipher cipher = initCipher(true);
             byte[] bytesToEncrypt = cipher.doFinal(stringToEncrypt.getBytes(UTF8));
-            encryptedText = Base64.getEncoder()
-                    .encodeToString(bytesToEncrypt);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException
-                | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+            encryptedText = Base64.getEncoder().encodeToString(bytesToEncrypt);
+        } catch (NoSuchAlgorithmException
+                | NoSuchPaddingException
+                | InvalidKeyException
+                | IllegalBlockSizeException
+                | BadPaddingException e) {
             throw new UnsupportedOperationException("Unable to encrypt text " + e.getMessage());
         }
         return encryptedText;
@@ -58,19 +60,21 @@ public class CryptoUtils {
         try {
             Cipher cipher = initCipher(false);
             decryptedText = new String(cipher.doFinal(Base64.getDecoder().decode(encryptedString)));
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException
-                | BadPaddingException | IllegalBlockSizeException e) {
+        } catch (NoSuchPaddingException
+                | NoSuchAlgorithmException
+                | InvalidKeyException
+                | BadPaddingException
+                | IllegalBlockSizeException e) {
             throw new UnsupportedOperationException("Unable to decrypt text " + e.getMessage());
         }
         return decryptedText;
     }
 
-    protected Cipher initCipher(boolean encryptMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    protected Cipher initCipher(boolean encryptMode)
+            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         int cipherMode = encryptMode ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE;
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(cipherMode, secretKeySpec);
         return cipher;
     }
-
-
 }

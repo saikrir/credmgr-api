@@ -1,11 +1,10 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.service;
 
+import java.util.List;
 import rao.saikrishna.apps.credmgr.api.model.SystemCredentialRO;
 
-import java.util.List;
-
 public interface ISystemCredentialService {
-
     String getSystemRecordOwner(Long id);
 
     SystemCredentialRO getSystemRecordSingle(Long byId);

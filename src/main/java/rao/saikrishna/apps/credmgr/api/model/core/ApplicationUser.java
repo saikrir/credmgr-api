@@ -1,16 +1,17 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.model.core;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class ApplicationUser {
-
     @Id
     @Column(unique = true, name = "username")
     private String userName;
+
     private String password;
     private Boolean enabled;
 
@@ -18,7 +19,6 @@ public class ApplicationUser {
     @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name = "username"))
     @Column(name = "authority")
     private Set<String> applicationRoles = new HashSet<>();
-
 
     public String getUserName() {
         return userName;
@@ -47,5 +47,4 @@ public class ApplicationUser {
     public Set<String> getApplicationRoles() {
         return applicationRoles;
     }
-
 }

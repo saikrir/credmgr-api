@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id "com.diffplug.spotless" version "5.8.2"
 }
 
 group = 'rao.saikrishna.apps'
@@ -11,6 +12,17 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral()
 }
+
+spotless {
+    java {
+        prettier(['prettier': '2.0.5', 'prettier-plugin-java': '0.8.0']).config(['parser': 'java', 'tabWidth': 4])
+        importOrder() // standard import order
+        removeUnusedImports()
+        googleJavaFormat('1.8').aosp()
+        licenseHeader '/* Sai Katterishetty (C) $YEAR */'
+    }
+}
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

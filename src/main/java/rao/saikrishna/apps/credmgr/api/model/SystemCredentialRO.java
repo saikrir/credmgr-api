@@ -1,19 +1,23 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.model;
 
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 public class SystemCredentialRO {
-
     @NotNull(message = "userId cannot be null")
     private String userId;
+
     @NotNull(message = "password cannot be null")
     private String password;
+
     @NotNull(message = "systemName cannot be null")
     private String systemName;
+
     @Size(max = 100)
     private String description;
+
     private LocalDateTime lastUpdated;
 
     private Long id;

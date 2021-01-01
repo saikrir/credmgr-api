@@ -1,3 +1,4 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.config;
 
 import org.slf4j.Logger;
@@ -17,17 +18,13 @@ import rao.saikrishna.apps.credmgr.api.utils.CredMgrPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 
-    @Autowired
-    private ApplicationUserService applicationUserService;
+    @Autowired private ApplicationUserService applicationUserService;
 
-    @Autowired
-    private CredMgrPasswordEncoder passwordEncoder;
+    @Autowired private CredMgrPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AuthFilter authFilter;
+    @Autowired private AuthFilter authFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,15 +32,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(applicationUserService);
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf()
+                .disable()
                 .authorizeRequests()
-                .antMatchers("/users/authenticate").permitAll()
-                .antMatchers("/users/token/**").permitAll()
-                .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .antMatchers("/users/authenticate")
+                .permitAll()
+                .antMatchers("/users/token/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         http.cors();
     }

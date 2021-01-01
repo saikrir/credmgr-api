@@ -1,13 +1,12 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.model.core;
 
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "system_credentials")
 public class SystemCredentials {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +28,6 @@ public class SystemCredentials {
 
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
-
 
     public Long getId() {
         return id;

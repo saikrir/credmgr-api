@@ -1,23 +1,22 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.utils;
 
+import java.time.LocalDateTime;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rao.saikrishna.apps.credmgr.api.model.SystemCredentialRO;
 import rao.saikrishna.apps.credmgr.api.model.core.SystemCredentials;
 
-import java.time.LocalDateTime;
-
 @Component
 public class ModelMapper {
-
-    @Autowired
-    private CryptoUtils cryptoUtils;
+    @Autowired private CryptoUtils cryptoUtils;
 
     public SystemCredentials toCoreModel(SystemCredentialRO systemCredentialRO) {
         SystemCredentials systemCredentials = new SystemCredentials();
         systemCredentials.setSystemUserId(systemCredentialRO.getUserId());
-        systemCredentials.setSystemPassword(cryptoUtils.encryptText(systemCredentialRO.getPassword()));
+        systemCredentials.setSystemPassword(
+                cryptoUtils.encryptText(systemCredentialRO.getPassword()));
         systemCredentials.setSystemName(systemCredentialRO.getSystemName());
         systemCredentials.setLastUpdated(LocalDateTime.now());
         systemCredentials.setId(systemCredentialRO.getId());
@@ -41,11 +40,13 @@ public class ModelMapper {
         return systemCredentialRO;
     }
 
-    public void copyValuesToModel(SystemCredentialRO systemCredentialRO, SystemCredentials systemCredentials) {
+    public void copyValuesToModel(
+            SystemCredentialRO systemCredentialRO, SystemCredentials systemCredentials) {
         systemCredentials.setId(systemCredentialRO.getId());
         systemCredentials.setAdditionalInfo(systemCredentialRO.getDescription());
         systemCredentials.setSystemName(systemCredentialRO.getSystemName());
-        systemCredentials.setSystemPassword(cryptoUtils.encryptText(systemCredentialRO.getPassword()));
+        systemCredentials.setSystemPassword(
+                cryptoUtils.encryptText(systemCredentialRO.getPassword()));
         systemCredentials.setSystemUserId(systemCredentialRO.getUserId());
         systemCredentials.setLastUpdated(LocalDateTime.now());
     }

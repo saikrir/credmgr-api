@@ -1,5 +1,5 @@
+/* Sai Katterishetty (C) 2021 */
 package rao.saikrishna.apps.credmgr.api.model;
-
 
 import java.io.Serializable;
 
@@ -10,8 +10,7 @@ public class AuthResponse implements Serializable {
         this.authToken = authToken;
     }
 
-    public AuthResponse() {
-    }
+    public AuthResponse() {}
 
     public String getAuthToken() {
         return authToken;
